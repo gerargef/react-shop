@@ -1,17 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
+import { ShopContext } from "../context";
 
-function Searcher({ getSearchValue }) {
+function Searcher() {
+  const { searchGoods } = useContext(ShopContext);
   const [search, setSearch] = useState("");
-  const handleKey = (e) => {
-    if (e.key === "Backspace" && search.length ===1 ) {
-      getSearchValue('');
-    }
-    if (e.key !== "Enter") {
-      return;
-    }
-    getSearchValue(search);
-  };
+
+  useEffect(() => {
+    searchGoods(search)
+  }, [search])
   return (
     <div className="searcher">
       <div className="row">
@@ -24,12 +21,12 @@ function Searcher({ getSearchValue }) {
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={handleKey}
+
             />
           </div>
           <button
             className="waves-effect waves-light btn  grey darken-2 search-btn"
-            onClick={() => getSearchValue(search)}
+            onClick={() => searchGoods(search)}
           >
             SEARCH
           </button>

@@ -1,14 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ShopContext } from "../context";
 import CartItem from "./CartItem";
 
-function CartList(props) {
-  const {
-    orders = [],
-    handleSetIsCartOpen,
-    deleteOrderCB,
-    handleDecrement,
-    handleIncrement,
-  } = props;
+function CartList() {
+  const { orders, handleSetIsCartOpen } = useContext(ShopContext);
   const totalPrice = orders.reduce((sum, item) => {
     return sum + item.price * item.quantity;
   }, 0);
@@ -16,7 +11,7 @@ function CartList(props) {
     <div className="cart-modal">
       <ul className="collection scale-in-center ">
         <li className="collection-item active grey darken-4">
-          Корзина{" "}
+          Корзина
           <i
             className="material-icons secondary-content"
             onClick={handleSetIsCartOpen}
@@ -25,15 +20,7 @@ function CartList(props) {
           </i>
         </li>
         {orders.length ? (
-          orders.map((order) => (
-            <CartItem
-              key={order.id}
-              {...order}
-              deleteOrderCB={deleteOrderCB}
-              handleIncrement={handleIncrement}
-              handleDecrement={handleDecrement}
-            />
-          ))
+          orders.map((order) => <CartItem key={order.id} {...order} />)
         ) : (
           <li className="collection-item">В корзине пусто</li>
         )}

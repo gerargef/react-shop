@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { ShopContext } from '../context';
 
-function Toasts(props) {
-    const {name, closeAlert} = props;
+
+
+function Toasts() {
+    const {alertName,closeAlert } = useContext(ShopContext);
     useEffect(() => {
         const timerId = setTimeout(closeAlert, 3000);
 
         return () => {clearTimeout(timerId)};
-    },[name])
+    },[alertName])
   return (
     <div id='toast-container'>
-        <div className="toast slide-in-blurred-bottom my-toast">Товар "{name}" был добавлен в корзину </div>
+        <div className="toast slide-in-blurred-bottom my-toast">Товар "{alertName}" был добавлен в корзину </div>
     </div>
   )
 }

@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { lazy, Suspense } from 'react'
+import { ShopContext } from "../context";
 import Loader from "./Loader";
  const GoodsItem = lazy(() => import('./GoodsItem'))
 
-function GoodsList(props) {
-  const { goods = [], setOrdersCB } = props;
+function GoodsList() {
+  const {currentGoods} = useContext(ShopContext);
   return (
     <div className="goods">
-      {!goods.length ? (
+      {!currentGoods.length ? (
         <h5>Ничего не найдено</h5>
       ) : (
-        goods.map((good, index) =>
-        <Suspense  key={Math.random()} fallback={<Loader  /> }>
-           <GoodsItem key={good.mainId} {...good} setOrdersCB={setOrdersCB} />
+        currentGoods.map((good) =>
+        <Suspense  key={Math.random()} fallback={<Loader /> }>
+           <GoodsItem key={good.mainId} {...good} />
         </Suspense>
        )
       )}

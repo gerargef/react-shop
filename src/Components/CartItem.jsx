@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ShopContext } from "../context";
 
 function CartItem(props) {
-  const { name, price, id, quantity, deleteOrderCB, handleDecrement, handleIncrement } = props;
-  const handleOrderDelete = () => {
-    deleteOrderCB(id);
-  };
+  const { name, price, id, quantity } = props;
+  const {deleteOrder, decrement, increment} = useContext(ShopContext);
   return (
     <div>
       <li className="collection-item">
         {name} 
-        <span><i className="material-icons cart-btn" onClick={() => handleDecrement(id)}>add</i></span>
+        <span><i className="material-icons cart-btn" onClick={() => decrement(id)}>add</i></span>
         x {quantity}
-        <span><i className="material-icons cart-btn" onClick={() => handleIncrement(id)}>remove</i></span>
+        <span><i className="material-icons cart-btn" onClick={() => increment(id)}>remove</i></span>
         = {price * quantity}
         <i
           className="material-icons secondary-content grey-text"
-          onClick={handleOrderDelete}
+          onClick={() => deleteOrder(id)}
         >
           close
         </i>

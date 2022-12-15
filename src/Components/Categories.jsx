@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ShopContext } from "../context";
 
-function Categories(props) {
-  const { getFilterCategory} = props;
+function Categories() {
+  const { filterGoods } = useContext(ShopContext);
   const [category, setCategory] = useState("");
   useEffect(() => {
-    getFilterCategory(category);
+    filterGoods(category);
   }, [category]);
   return (
     <div className="categories-mobile  categories">
@@ -13,14 +14,14 @@ function Categories(props) {
         className="categories-form scale-up-center "
         onClick={(e) => e.stopPropagation()}
       >
-        <p >
+        <p>
           <label className="black-text">
             <input
               name="group1"
               type="radio"
               value=""
               onChange={(e) => setCategory(e.target.value)}
-              checked={category === ''}
+              checked={category === ""}
             />
             <span>Всё</span>
           </label>
@@ -32,10 +33,10 @@ function Categories(props) {
               type="radio"
               value="Экипировка"
               onChange={(e) => setCategory(e.target.value)}
-              checked={category === 'Экипировка'}
+              checked={category === "Экипировка"}
             />
             <span>Экипировка</span>
-          </label >
+          </label>
         </p>
         <p>
           <label className="black-text">
@@ -44,7 +45,7 @@ function Categories(props) {
               type="radio"
               value="Инструмент"
               onChange={(e) => setCategory(e.target.value)}
-              checked={category === 'Инструмент'}
+              checked={category === "Инструмент"}
             />
             <span>Инструмент</span>
           </label>
@@ -56,7 +57,7 @@ function Categories(props) {
               type="radio"
               value="Эмоция"
               onChange={(e) => setCategory(e.target.value)}
-              checked={category === 'Эмоция'}
+              checked={category === "Эмоция"}
             />
             <span>Эмоция</span>
           </label>
@@ -68,7 +69,7 @@ function Categories(props) {
               type="radio"
               value="Комплект"
               onChange={(e) => setCategory(e.target.value)}
-              checked={category === 'Комплект'}
+              checked={category === "Комплект"}
             />
             <span>Комплект предметов</span>
           </label>
@@ -80,7 +81,7 @@ function Categories(props) {
               type="radio"
               value="Дельтаплан"
               onChange={(e) => setCategory(e.target.value)}
-              checked={category === 'Дельтаплан'}
+              checked={category === "Дельтаплан"}
             />
             <span>Дельтаплан</span>
           </label>

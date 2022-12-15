@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ShopContext } from "../context";
 
 function GoodsItem({
   displayName,
@@ -6,13 +7,11 @@ function GoodsItem({
   displayAssets,
   price,
   mainId,
-  setOrdersCB,
   displayType,
   rarity
-}) {
-  const setOrders = (e) => {
-    setOrdersCB(displayName, price.finalPrice, mainId)
-  }
+}) 
+{
+  const {setOrder} = useContext(ShopContext);
   return (
     <div>
       <div className="row">
@@ -29,7 +28,7 @@ function GoodsItem({
               <p>{displayType} - {rarity.name.toLowerCase()} </p>
             </div>
             <div className="card-action grey lighten-2">
-              <button onClick={setOrders} className="btn right teal lighten-2  ">
+              <button onClick={() => setOrder(displayName, price.finalPrice, mainId)} className="btn right teal lighten-2  ">
                 Купить
               </button>
               <span style={{ fontSize: "1.8rem" }}>{price.finalPrice} Ⓥ</span>
